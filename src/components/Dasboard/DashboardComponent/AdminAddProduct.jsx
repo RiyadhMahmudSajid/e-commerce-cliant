@@ -11,11 +11,7 @@ import toast from "react-hot-toast";
 
 const AdminAddProduct = () => {
     const axiosInstance = useAxios()
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm();
+    const {register,handleSubmit,formState: { errors }} = useForm();
 
     const onSubmit = async (data) => {
         const imageFile = data.photoURL[0];

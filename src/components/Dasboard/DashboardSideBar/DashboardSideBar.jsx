@@ -31,7 +31,6 @@ const AdminSidebar = () => {
     { to: "/dashboard/user/wishlist", icon: Heart, label: "My Wishlist" },
     { to: "/dashboard/user/reviews", icon: Star, label: "My Reviews" },
     { to: "/dashboard/user/address", icon: MapPin, label: "Shipping Address" },
-    { to: "/dashboard/user/settings", icon: Settings, label: "Settings" },
     { to: "/dashboard/user/support", icon: HeadphonesIcon, label: "Support Center" },
   ];
 

@@ -35,6 +35,7 @@ const ProductDescrip = () => {
             productName: product.name,
             price: product.price,
             quantity: 1,
+            photo:product.photo,
             totalAmount:product.price,
             status:"pending",
         };

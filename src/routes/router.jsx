@@ -16,9 +16,12 @@ import SearchResults from "../components/pages/SearchResults";
 import ProductDescrip from "../components/Home/HomeComponents/ProductDescrip";
 import UserProfile from "../components/UserProfile/UserProfile";
 import DashboardHome from "../components/Dasboard/DashboardHome/DashboardHome";
-import UserAccount from "../components/Dasboard/userDashboard/UserAccount";
 import CartPage from "../components/Home/Cart/CartPage";
 import CheckoutPage from "../components/Home/Cart/CheckoutPage";
+import UserOrder from "../components/Dasboard/userDashboard/UserOrder";
+import UserWhishlist from "../components/Dasboard/userDashboard/UserWhishlist";
+import AdminOrderView from "../components/Dasboard/DashboardComponent/AdminOrderView";
+import AdminUserView from "../components/Dasboard/DashboardComponent/AdminUserView";
 
 
 
@@ -105,7 +108,20 @@ export const router = createBrowserRouter([
         Component: UserProfile
       },
       {
-
+        path:'/dashboard/user/my-orders',
+        Component:UserOrder
+      },
+      {
+        path:'/dashboard/user/wishlist',
+        Component:UserWhishlist
+      },
+      {
+        path:'/dashboard/orders',
+        Component:AdminOrderView
+      },
+      {
+        path:'/dashboard/users',
+        Component:AdminUserView
       }
     ]
   },
