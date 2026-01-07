@@ -5,16 +5,18 @@ import useAxios from '../../../hooks/useAxios';
 import Loading from '../../loading/Loading';
 import { ShoppingBag, Package, Clock, CheckCircle, ExternalLink, Delete, DeleteIcon } from 'lucide-react';
 import toast from 'react-hot-toast';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const UserOrder = () => {
     const { user } = useContext(AuthContex);
     const axiosInstance = useAxios();
+    const axiosSecure = useAxiosSecure()
     const queryClient = useQueryClient()
 
     const { isLoading, data: orders = [] } = useQuery({
         queryKey: ['order', user?.email],
         queryFn: async () => {
-            const result = await axiosInstance.get(`/order?email=${user?.email}`);
+            const result = await axiosSecure.get(`/order?email=${user?.email}`);
             return result.data;
         }
     });
