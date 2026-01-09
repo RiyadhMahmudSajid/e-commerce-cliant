@@ -22,6 +22,8 @@ import UserOrder from "../components/Dasboard/userDashboard/UserOrder";
 import UserWhishlist from "../components/Dasboard/userDashboard/UserWhishlist";
 import AdminOrderView from "../components/Dasboard/DashboardComponent/AdminOrderView";
 import AdminUserView from "../components/Dasboard/DashboardComponent/AdminUserView";
+import PaymentSuccess from "../components/Payment/PaymentSuccess";
+import PaymentFail from "../components/Payment/PaymentFail";
 
 
 
@@ -60,6 +62,15 @@ export const router = createBrowserRouter([
       {
         path: "/checkout",
         Component: CheckoutPage
+      },
+      {
+        path:'/payment/success/:tranId',
+        Component:PaymentSuccess
+      },
+
+      {
+        path:'/payment/fail',
+        Component:PaymentFail
       }
     ]
   },

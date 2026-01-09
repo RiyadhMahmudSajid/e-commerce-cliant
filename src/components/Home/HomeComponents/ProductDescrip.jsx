@@ -33,6 +33,7 @@ const ProductDescrip = () => {
             email: user?.email,
             productId: product._id,
             productName: product.name,
+            productCategory:product.category,
             price: product.price,
             quantity: 1,
             photo:product.photo,

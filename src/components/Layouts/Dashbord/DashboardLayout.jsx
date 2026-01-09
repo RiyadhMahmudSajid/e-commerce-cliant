@@ -4,20 +4,21 @@ import { Outlet } from 'react-router';
 
 const DashboardLayout = () => {
     return (
-        <div className="flex min-h-screen bg-bg-primary">
-            <aside className="fixed inset-y-0 left-0 ">
+        <div className="flex min-h-screen bg-bg-primary overflow-x-hidden">
+           
+            <div className="w-0 lg:w-72 flex-shrink-0">
                 <DashboardSidebar />
-            </aside>
+            </div>
 
-            <main className="flex-1 flex flex-col transition-all duration-300 lg:ml-72 w-full">
-
-                <div className="p-5 lg:p-8 min-h-[calc(100vh-20px)]">
-                    <div className="max-w-7xl mx-auto">
+   
+            <main className="flex-1 flex flex-col min-w-0 relative z-10">
+                <div className="p-4 md:p-8 mt-16 lg:mt-0">
+                    <div className="max-w-7xl mx-auto w-full">
                         <Outlet />
                     </div>
                 </div>
 
-                <footer className="p-5 text-center text-text-muted text-xs font-bold uppercase tracking-widest border-t border-border-color">
+                <footer className="mt-auto p-5 text-center text-text-muted text-xs font-bold uppercase tracking-widest border-t border-border-color bg-bg-primary">
                     &copy; 2026 ShopHub. All rights reserved.
                 </footer>
             </main>

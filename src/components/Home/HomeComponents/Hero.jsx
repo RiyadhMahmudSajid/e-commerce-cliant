@@ -1,98 +1,125 @@
-import { ArrowRight, Play, ChevronRight } from 'lucide-react';
-import heroImage from '../../../assets/Hero1.png'
+import { ArrowRight, Play, Sparkles } from "lucide-react";
+import { motion } from "motion/react";
+import heroImage from "../../../assets/Hero1.png";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[90vh] flex items-center bg-background overflow-hidden transition-colors duration-500">
-      
-      {/* Background Subtle Patterns - Apple Style */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-[10%] left-[5%] w-72 h-72 bg-accent opacity-[0.03] rounded-full blur-[100px]" />
-        <div className="absolute bottom-[10%] right-[5%] w-96 h-96 bg-accent opacity-[0.05] rounded-full blur-[120px]" />
-      </div>
+    <motion.section
+      initial={{ scale: 1.05, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ duration: 1.2, ease: "easeOut" }}
+      className="relative min-h-[90vh] flex items-center bg-background overflow-hidden transition-colors duration-500"
+    >
+  
+      <div className="absolute -top-40 -left-40 w-[480px] h-[480px] bg-accent opacity-[0.08] rounded-full blur-[140px]" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
-        <div className="grid lg:grid-cols-12 gap-12 items-center">
-          
-          {/* Left Text Content - 7 Columns */}
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-12 w-full py-12">
+        <div className="grid lg:grid-cols-12 gap-14 items-center">
+
+ 
           <div className="lg:col-span-7 space-y-10">
-            <div className="flex items-center gap-3">
-              <span className="h-[2px] w-12 bg-accent rounded-full"></span>
-              <span className="text-accent font-bold tracking-[0.2em] uppercase text-xs">
-                Premium Experience
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent-soft border border-accent/10 rounded-full"
+            >
+              <Sparkles size={14} className="text-accent" />
+              <span className="text-accent font-semibold tracking-widest uppercase text-[10px]">
+                Next Gen Technology
               </span>
-            </div>
+            </motion.div>
 
-            <h1 className="text-6xl md:text-8xl font-black text-text-main tracking-tighter leading-[0.95]">
-              Style <br /> 
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-400">
-                Redefined.
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.5 }}
+              className="text-5xl md:text-6xl lg:text-7xl font-semibold text-text-main leading-tight tracking-tight"
+            >
+              Style <br />
+              <span className="bg-gradient-to-r from-accent to-blue-400 bg-clip-text text-transparent">
+                Perfected
               </span>
-            </h1>
+            </motion.h1>
 
-            <p className="max-w-lg text-lg text-text-muted leading-relaxed font-medium">
-              Explore our curated collection of tech and fashion essentials. 
-              Designed for those who appreciate the finer details.
-            </p>
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              className="max-w-lg text-lg text-text-muted leading-relaxed"
+            >
+              Experience the balance of refined aesthetics and powerful performance —
+              thoughtfully crafted for modern lifestyles.
+            </motion.p>
 
-            <div className="flex flex-wrap gap-5">
-              <button className="px-10 py-5 bg-accent hover:bg-accent-hover text-white rounded-full font-bold flex items-center gap-3 transition-all shadow-2xl shadow-accent/30 hover:-translate-y-1 active:scale-95">
-                Start Shopping <ArrowRight size={20} />
-              </button>
-              
-              <button className="flex items-center gap-4 px-6 py-5 text-text-main font-bold hover:text-accent transition-colors group">
-                <div className="w-12 h-12 flex items-center justify-center rounded-full border border-border-color group-hover:border-accent transition-all">
-                  <Play size={18} fill="currentColor" />
-                </div>
-                See How It Works
-              </button>
+            <div className="flex flex-wrap items-center gap-6">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-text-main text-bg-primary font-semibold transition-all hover:bg-accent hover:shadow-lg active:scale-95"
+              >
+                Start Exploring
+                <ArrowRight size={18} />
+              </motion.button>
+
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center gap-3 text-text-main font-medium hover:text-accent transition"
+              >
+                <span className="w-11 h-11 flex items-center justify-center rounded-full border border-border-color">
+                  <Play size={14} className="ml-0.5" />
+                </span>
+                Watch Story
+              </motion.button>
             </div>
-            
-            {/* Minimal Brand Proof */}
-            <div className="pt-8 flex items-center gap-8 border-t border-border-color/50 max-w-sm">
-               <div>
-                  <p className="text-2xl font-bold text-text-main">2025</p>
-                  <p className="text-xs text-text-muted uppercase tracking-widest font-bold">Edition</p>
-               </div>
-               <div className="w-px h-8 bg-border-color"></div>
-               <div>
-                  <p className="text-2xl font-bold text-text-main">Global</p>
-                  <p className="text-xs text-text-muted uppercase tracking-widest font-bold">Shipping</p>
-               </div>
-            </div>
-          </div>
 
-          {/* Right Visual Section - 5 Columns */}
-          <div className="lg:col-span-5 relative">
-            <div className="relative w-full aspect-[4/5] rounded-[3rem] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.25)] border-[12px] border-bg-secondary transition-all duration-700 hover:rotate-2">
-              <img 
-                src={heroImage}
-                alt="Main Feature" 
-                className="w-full h-full object-cover scale-110 hover:scale-100 transition-transform duration-1000"
-              />
-              
-              {/* Floating Overlay Card */}
-              <div className="absolute bottom-8 inset-x-8 p-6 bg-bg-primary/80 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl">
-                <div className="flex justify-between items-end">
-                   <div className="space-y-1">
-                      <p className="text-[10px] text-accent font-black uppercase tracking-widest">Featured Product</p>
-                      <p className="text-lg font-bold text-text-main">Wireless Precision</p>
-                      <p className="text-sm text-text-muted">$299.00</p>
-                   </div>
-                   <button className="p-3 bg-text-main text-bg-primary rounded-2xl hover:bg-accent transition-colors">
-                      <ChevronRight size={20} />
-                   </button>
-                </div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+              className="pt-10 flex items-center gap-10 border-t border-border-color/60"
+            >
+              <div>
+                <p className="text-2xl font-semibold text-text-main">99%</p>
+                <p className="text-[10px] text-text-muted uppercase tracking-widest">Accuracy</p>
               </div>
-            </div>
+              <div className="w-px h-8 bg-border-color" />
+              <div>
+                <p className="text-2xl font-semibold text-text-main">24/7</p>
+                <p className="text-[10px] text-text-muted uppercase tracking-widest">Support</p>
+              </div>
+            </motion.div>
 
-            {/* Background Aesthetic Shape */}
-            <div className="absolute -top-10 -right-10 w-40 h-40 bg-accent-soft rounded-[2rem] -z-10 rotate-12" />
-            <div className="absolute -bottom-10 -left-10 w-24 h-24 bg-border-color rounded-full -z-10 animate-pulse" />
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+            className="lg:col-span-5 relative"
+          >
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.5 }}
+              className="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden bg-bg-secondary border-[4px] border-bg-primary shadow-[0_40px_80px_-30px_rgba(0,0,0,0.35)]"
+            >
+              <img
+                src={heroImage}
+                alt="Product Showcase"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute top-5 right-5 px-4 py-1.5 bg-black/20 backdrop-blur-md rounded-full">
+                <p className="text-white text-[10px] font-semibold tracking-widest uppercase">
+                  In Stock
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
 
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

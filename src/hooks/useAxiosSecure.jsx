@@ -19,7 +19,7 @@ const useAxiosSecure = () => {
             },
             async (error) => {
                 if (error.response && (error.response.status === 401 || error.response.status === 403)) {
-                    console.log('টোকেন সমস্যা, লগআউট করা হচ্ছে...');
+                   
                     await logOut(); 
                     navigate('/login'); 
                 }
