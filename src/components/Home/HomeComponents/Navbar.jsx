@@ -19,8 +19,8 @@ export default function Navbar() {
     const [search, setSearch] = useState("");
     const [suggestions, setSuggestions] = useState([]);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isCatOpen, setIsCatOpen] = useState(false); // Mobile category toggle
-    
+    const [isCatOpen, setIsCatOpen] = useState(false);
+
     const navigate = useNavigate();
     const { products } = useProduct();
     const { cart } = useContext(CartContext);
@@ -28,6 +28,7 @@ export default function Navbar() {
     const { categories } = useCategory();
     const { user, logOut } = useContext(AuthContex);
     const { role, allLoading } = useUserRole();
+ 
 
     const handleLogOut = () => {
         toast.success("Logout Successful");
@@ -50,7 +51,7 @@ export default function Navbar() {
         <nav className="sticky top-0 z-[100] bg-surface/80 backdrop-blur-md border-b border-border-color transition-all duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16 md:h-20 gap-2">
-                    
+
 
                     <NavLink to="/" className="flex items-center space-x-2 group shrink-0 ">
                         <div className="bg-accent p-1.5 rounded-lg group-hover:rotate-12 transition-transform shadow-lg shadow-accent/20">
@@ -63,15 +64,15 @@ export default function Navbar() {
 
                     <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
                         {navLinks.map((link) => (
-                            <NavLink 
-                                key={link.name} 
+                            <NavLink
+                                key={link.name}
                                 to={link.path}
                                 className={({ isActive }) => `text-sm font-bold transition-colors ${isActive ? "text-accent" : "text-text-muted hover:text-accent"}`}
                             >
                                 {link.name}
                             </NavLink>
                         ))}
-                        
+
 
                         <div className='relative group py-4'>
                             <button className="flex items-center gap-1 text-sm font-bold text-text-muted hover:text-accent transition-all">
@@ -171,10 +172,24 @@ export default function Navbar() {
                             placeholder="Search for products..."
                             className="w-full pl-10 pr-4 py-3 rounded-2xl bg-bg-secondary border border-border-color text-text-main"
                             value={search}
-                            onChange={(e) => setSearch(e.target.value)}
+                            onChange={(e) => {
+                                setSearch(e.target.value);
+                                if (e.target.value.length > 0) {
+                                    setSuggestions(products.filter(p => p.name.toLowerCase().includes(e.target.value.toLowerCase())).slice(0, 5));
+                                } else setSuggestions([]);
+                            }}
                             onKeyDown={(e) => e.key === "Enter" && handleSearch(search)}
                         />
                         <Search className="absolute left-3.5 top-3.5 text-text-muted" size={20} />
+                        {suggestions.length > 0 && (
+                            <ul className="absolute w-full bg-surface border border-border-color rounded-xl mt-2 shadow-2xl z-50 overflow-hidden">
+                                {suggestions.map(p => (
+                                    <li key={p._id} onClick={() => handleSearch(p.name)} className="px-4 py-2.5 text-sm cursor-pointer hover:bg-accent hover:text-white transition-colors">
+                                        {p.name}
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
                     </div>
 
                     <div className="space-y-1">
@@ -230,7 +245,7 @@ export default function Navbar() {
                                 </button>
                             </div>
                         ) : (
-                            <Link to="/login" onClick={() => setIsMenuOpen(false)} className="block w-full py-4 text-center bg-accent text-white rounded-2xl font-bold shadow-lg shadow-accent/20">
+                            <Link to="/login"  onClick={() => setIsMenuOpen(false)} className="block w-full py-4 text-center bg-accent text-white rounded-2xl font-bold shadow-lg shadow-accent/20">
                                 Login to Account
                             </Link>
                         )}

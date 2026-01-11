@@ -1,12 +1,13 @@
 import { Star, ShoppingCart, Heart } from 'lucide-react';
 import useProduct from '../../../hooks/useProduct';
 import Loading from '../../loading/Loading';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import useWhislist from '../../../hooks/useWhislist';
 import { motion } from 'motion/react';
 
 const AllProducts = () => {
+   
     const { isLoading, products } = useProduct()
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;

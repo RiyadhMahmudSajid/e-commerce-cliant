@@ -14,6 +14,7 @@ import Loading from '../../loading/Loading';
 import { CartContext } from '../../../providers/CartProvider';
 import { AuthContex } from '../../../providers/AuthProvider';
 import useAxios from '../../../hooks/useAxios';
+import toast from 'react-hot-toast';
 
 const ProductDescrip = () => {
     const { id } = useParams();
@@ -29,20 +30,24 @@ const ProductDescrip = () => {
     const product = products.find(p => p._id === id);
 
     const handleBuyNow = async () => {
+        if (!user) {
+            toast.error('Log in fast')
+            return
+        }
         const orderInfo = {
             email: user?.email,
             productId: product._id,
             productName: product.name,
-            productCategory:product.category,
+            productCategory: product.category,
             price: product.price,
             quantity: 1,
-            photo:product.photo,
-            totalAmount:product.price,
-            status:"pending",
+            photo: product.photo,
+            totalAmount: product.price,
+            status: "pending",
         };
-        const response = await  axiosInstance.post('/orders/create',orderInfo)
+        const response = await axiosInstance.post('/orders/create', orderInfo)
         console.log(response)
-        if(response.data?.gateWayPageUrl){
+        if (response.data?.gateWayPageUrl) {
             window.location.replace(response.data.gateWayPageUrl)
         }
     }
@@ -70,110 +75,114 @@ const ProductDescrip = () => {
     };
 
     return (
-        <section className="py-14 max-w-7xl mx-auto px-4">
-            <div className="flex flex-col lg:flex-row gap-12 relative">
+        <section className=" bg-surface">
+            <div className='py-14 max-w-7xl mx-auto px-4'>
+                <div className="flex flex-col lg:flex-row gap-12 relative">
 
 
-                <div className="w-full lg:w-1/2 flex gap-6 ">
+                    <div className="w-full lg:w-1/2 flex gap-6 ">
 
 
-                    <div
-                        onMouseEnter={() => setShowZoom(true)}
-                        onMouseLeave={() => setShowZoom(false)}
-                        onMouseMove={handleMouseMove}
-                        className="relative w-4/5 aspect-square overflow-hidden rounded-2xl border cursor-crosshair bg-bg-secondary"
-                    >
-                        <img
-                            src={product.photo}
-                            alt={product.name}
-                            className="w-full h-full object-cover"
-                        />
-
-                        {product.discount && (
-                            <span className="absolute top-4 left-4 bg-danger text-white px-3 py-1 rounded-lg text-xs font-bold">
-                                {product.discount}% OFF
-                            </span>
-                        )}
-                    </div>
-
-
-                    {showZoom && (
                         <div
-                            className="hidden absolute right-0 lg:block w-1/2 aspect-square rounded-2xl border bg-bg-secondary"
-                            style={{
-                                backgroundImage: `url(${product.photo})`,
-                                backgroundRepeat: "no-repeat",
-                                backgroundSize: "220%",
-                                backgroundPosition: bgPos,
-                            }}
-                        />
-                    )}
-                </div>
+                            onMouseEnter={() => setShowZoom(true)}
+                            onMouseLeave={() => setShowZoom(false)}
+                            onMouseMove={handleMouseMove}
+                            className="relative w-4/5 aspect-square overflow-hidden rounded-2xl border cursor-crosshair bg-bg-secondary"
+                        >
+                            <img
+                                src={product.photo}
+                                alt={product.name}
+                                className="w-full h-full object-cover"
+                            />
 
-                <div className="w-full lg:w-1/2 flex flex-col">
-
-
-                    <div className="flex items-center gap-3 mb-3">
-                        <span className="px-3 py-1 bg-accent/10 text-accent text-xs font-bold rounded">
-                            {product.category}
-                        </span>
-                        <div className="flex items-center gap-1 text-yellow-500">
-                            <Star size={14} className="fill-current" />
-                            <span className="text-sm font-bold">{product.rating}</span>
+                            {product.discount && (
+                                <span className="absolute top-4 left-4 bg-danger text-white px-3 py-1 rounded-lg text-xs font-bold">
+                                    {product.discount}% OFF
+                                </span>
+                            )}
                         </div>
-                    </div>
 
-                    <h1 className="text-3xl font-black mb-4">
-                        {product.name}
-                    </h1>
 
-                    <div className="flex items-end gap-3 mb-6">
-                        <span className="text-3xl font-black text-accent">
-                            ${product.price}
-                        </span>
-                        {product.oldPrice && (
-                            <span className="text-lg line-through text-text-muted">
-                                ${product.oldPrice}
-                            </span>
+                        {showZoom && (
+                            <div
+                                className="hidden absolute right-0 lg:block w-1/2 aspect-square rounded-2xl border bg-bg-secondary"
+                                style={{
+                                    backgroundImage: `url(${product.photo})`,
+                                    backgroundRepeat: "no-repeat",
+                                    backgroundSize: "220%",
+                                    backgroundPosition: bgPos,
+                                }}
+                            />
                         )}
                     </div>
 
-                    <p className="text-text-muted leading-relaxed mb-8">
-                        {product.description}
-                    </p>
+                    <div className="w-full lg:w-1/2 flex flex-col">
 
-                    <div className="grid grid-cols-2 gap-4 mb-8">
-                        <div className="flex items-center gap-3 p-3 border rounded-xl">
-                            <Truck size={20} className="text-accent" />
-                            <span className="text-xs font-bold">Fast Delivery</span>
+
+                        <div className="flex items-center gap-3 mb-3">
+                            <span className="px-3 py-1 bg-accent/10 text-accent text-xs font-bold rounded">
+                                {product.category}
+                            </span>
+                            <div className="flex items-center gap-1 text-yellow-500">
+                                <Star size={14} className="fill-current" />
+                                <span className="text-sm font-bold">{product.rating}</span>
+                            </div>
                         </div>
-                        <div className="flex items-center gap-3 p-3 border rounded-xl">
-                            <ShieldCheck size={20} className="text-accent" />
-                            <span className="text-xs font-bold">Secure Payment</span>
+
+                        <h1 className="text-3xl font-black text-black dark:text-white mb-4">
+                            {product.name}
+                        </h1>
+
+                        <div className="flex items-end gap-3 mb-6">
+                            <span className="text-3xl font-black text-accent">
+                                ${product.price}
+                            </span>
+                            {product.oldPrice && (
+                                <span className="text-lg line-through text-text-muted">
+                                    ${product.oldPrice}
+                                </span>
+                            )}
                         </div>
-                    </div>
 
-                    <div className="flex flex-wrap gap-4">
-                        <button
-                            onClick={handleBuyNow}
-                            className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-accent text-white rounded-xl font-bold hover:bg-accent-hover transition">
-                            <Zap size={18} />
-                            Buy Now
-                        </button>
+                        <p className="text-text-muted leading-relaxed mb-8">
+                            {product.description}
+                        </p>
 
-                        <button
-                            onClick={() => addToCart(product)}
-                            className="flex-1 flex items-center justify-center gap-2 px-6 py-4 border border-accent text-accent rounded-xl font-bold hover:bg-accent hover:text-white transition">
-                            <ShoppingCart size={18} />
-                            Add to Cart
-                        </button>
+                        <div className="grid grid-cols-2 gap-4 mb-8">
+                            <div className="flex items-center gap-3 p-3 border rounded-xl">
+                                <Truck size={20} className="text-accent" />
+                                <span className="text-xs font-bold text-black dark:text-white">Fast Delivery</span>
+                            </div>
+                            <div className="flex items-center gap-3 p-3 border rounded-xl">
+                                <ShieldCheck size={20} className="text-accent" />
+                                <span className="text-xs font-bold text-black dark:text-white">Secure Payment</span>
+                            </div>
+                        </div>
 
-                        <button className="p-4 border rounded-xl hover:text-danger transition">
-                            <Heart size={20} />
-                        </button>
+                        <div className="flex flex-wrap gap-4">
+                            <button
+                                onClick={handleBuyNow}
+                                className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-accent text-white rounded-xl font-bold hover:bg-accent-hover transition">
+                                <Zap size={18} />
+                                Buy Now
+                            </button>
+
+
+                            <button
+                                onClick={() => addToCart(product)}
+                                className="flex-1 flex items-center justify-center gap-2 px-6 py-4 border border-accent text-accent rounded-xl font-bold hover:bg-accent hover:text-white transition">
+                                <ShoppingCart size={18} />
+                                Add to Cart
+                            </button>
+
+                            <button className="p-4 border text-black dark:text-white rounded-xl hover:text-danger transition">
+                                <Heart  size={20} />
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </section>
     );
 };

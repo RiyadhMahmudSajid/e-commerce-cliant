@@ -6,10 +6,12 @@ import { Link, useNavigate } from 'react-router';
 import { motion } from 'motion/react';
 import { useContext } from 'react';
 import { CartContext } from '../../../providers/CartProvider';
+import useWhislist from '../../../hooks/useWhislist';
 
 const FeaturedProducts = () => {
   const axiosInstance = useAxios();
   const { addToCart } = useContext(CartContext)
+  const { handleWhislist } = useWhislist()
   const navigate = useNavigate()
   const { isLoading, data: products = [] } = useQuery({
     queryKey: ['products'],
@@ -33,7 +35,7 @@ const FeaturedProducts = () => {
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
           className="text-center mb-12"
-          
+
 
         >
           <h2 className="text-4xl md:text-5xl font-semibold text-text-main mb-4">
@@ -71,7 +73,9 @@ const FeaturedProducts = () => {
                 )}
 
                 <button className="absolute top-3 right-3 p-2 bg-bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-accent-soft">
-                  <Heart className="w-5 h-5 text-text-muted hover:text-danger transition-colors" />
+                  <Heart
+                  onClick={(e)=>{e.stopPropagation();handleWhislist(product)}}
+                  className="w-5 h-5 text-text-muted hover:text-danger transition-colors" />
                 </button>
               </div>
 

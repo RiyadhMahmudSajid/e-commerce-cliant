@@ -1,7 +1,9 @@
 import React, { useState, useContext } from "react";
-import { NavLink, useNavigate } from "react-router";
+import { Navigate, NavLink, useNavigate } from "react-router";
 import {
-  Home, LayoutGrid, PlusCircle, Users, Box, Settings, LogOut, Menu, X, ChevronRight, Folder, UserCircle, ShoppingBag, Heart, Star, MapPin, HeadphonesIcon
+  Home, LayoutGrid, PlusCircle, Users, Box, Settings, LogOut, Menu, X, ChevronRight, Folder, UserCircle, ShoppingBag, Heart, Star, MapPin, HeadphonesIcon,
+  HomeIcon,
+  Superscript
 } from "lucide-react";
 import { AuthContex } from "../../../providers/AuthProvider";
 import useUserRole from "../../../hooks/useUserRole";
@@ -21,7 +23,7 @@ const AdminSidebar = () => {
     { to: "/dashboard/add-categories", icon: Folder, label: "Add Categories" },
     { to: "/dashboard/orders", icon: Box, label: "Orders" },
     { to: "/dashboard/users", icon: Users, label: "Users" },
-    { to: "/dashboard/settings", icon: Settings, label: "Settings" },
+    { to: "/dashboard/support", icon: HeadphonesIcon, label: "Support" },
   ];
 
   const userLinks = [
@@ -96,8 +98,18 @@ const AdminSidebar = () => {
           ))}
         </nav>
 
-        <div className="mt-auto pt-6 border-t border-border-color">
-          <button onClick={handleLogout} className="group w-full flex items-center gap-3 px-5 py-4 rounded-2xl font-black text-sm bg-danger/5 text-danger border border-danger/10 hover:bg-danger hover:text-white transition-all shadow-sm">
+        <div className="mt-auto pt-6 border-t border-border-color space-y-4">
+          <button
+            onClick={() => navigate('/')}
+            className="group w-full flex items-center gap-3 px-5 py-4 rounded-2xl font-black text-sm bg-danger/5 text-danger border border-danger/10 hover:bg-danger hover:text-white transition-all shadow-sm"
+          >
+            <HomeIcon size={19} className="group-hover:-translate-x-1 transition-transform" />
+            Home
+          </button>
+
+          <button
+          onClick={handleLogout}
+          className="group w-full flex items-center gap-3 px-5 py-4 rounded-2xl font-black text-sm bg-danger/5 text-danger border border-danger/10 hover:bg-danger hover:text-white transition-all shadow-sm">
             <LogOut size={19} className="group-hover:-translate-x-1 transition-transform" />
             Logout Account
           </button>

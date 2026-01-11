@@ -1,11 +1,13 @@
 import { useContext } from "react";
 import { CartContext } from "../../../providers/CartProvider";
 import { useNavigate } from "react-router";
+import { AuthContex } from "../../../providers/AuthProvider";
+import toast from "react-hot-toast";
 
 const CartPage = () => {
     const { cart, increaseQty, decreaseQty, removeFromCart } = useContext(CartContext);
     const navigate = useNavigate();
-
+    const {user} = useContext(AuthContex)
     if (cart.length === 0) {
         return (
             <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-4">
@@ -112,7 +114,10 @@ const CartPage = () => {
                             </div>
 
                             <button
-                                onClick={() => navigate("/checkout")}
+                               
+                                onClick={() => {if(!user){
+                                    return toast.error('Log in Firs')
+                                } navigate("/checkout")}}
                                 className="w-full mt-8 py-4 rounded-2xl font-bold text-white shadow-lg transition-all active:scale-95"
                                 style={{
                                     background: "var(--color-accent)",

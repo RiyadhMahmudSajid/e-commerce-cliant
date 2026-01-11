@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 import { AuthContex } from '../../providers/AuthProvider';
 
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { signInUser } = useContext(AuthContex);
-
+    const navigate = useNavigate()
     const onSubmit = async (data) => {
 
         await signInUser(data.email, data.password)
@@ -53,6 +53,7 @@ const Login = () => {
                     </div>
 
                     <button
+                        
                         type="submit"
                         className="w-full bg-accent hover:bg-accent-hover text-white py-3.5 rounded-xl font-bold text-sm transition-all mt-2 active:scale-95 shadow-md shadow-accent/10"
                     >

@@ -25,7 +25,7 @@ const SearchResults = () => {
                             key={product._id}
                             className="group bg-bg-secondary rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
                         >
-                            {/* Image */}
+                            
                             <div className="relative overflow-hidden aspect-square">
                                 <img
                                     src={product.photo}
@@ -44,19 +44,19 @@ const SearchResults = () => {
                                 </button>
                             </div>
 
-                            {/* Content */}
+                   
                             <div className="p-5">
                                 <h3 className="font-semibold text-lg text-text-main mb-2 line-clamp-1">
                                     {product.name}
                                 </h3>
 
-                                {/* Description (first 20 words) */}
+                 
                                 <p className="text-sm text-text-muted mb-3">
                                     {product.description?.split(' ').slice(0, 5).join(' ')}
                                     {product.description?.split(' ').length > 5 && ' ...'}
                                 </p>
 
-                                {/* Rating */}
+             
                                 <div className="flex items-center mb-3">
                                     <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                                     <span className="ml-2 text-sm text-text-muted">
@@ -64,7 +64,7 @@ const SearchResults = () => {
                                     </span>
                                 </div>
 
-                                {/* Price & Cart */}
+                      
                                 <div className="flex items-center justify-between">
                                     <div>
                                         <div className="flex items-center gap-2">

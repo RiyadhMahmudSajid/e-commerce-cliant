@@ -26,7 +26,11 @@ createRoot(document.getElementById('root')).render(
             />
             <CartProvider>
 
-              <RouterProvider router={router}></RouterProvider>
+
+              <RouterProvider router={router}>
+                
+              </RouterProvider>
+
             </CartProvider>
 
           </ThemeProvider>

@@ -17,6 +17,7 @@ const UserOrder = () => {
         queryKey: ['order', user?.email],
         queryFn: async () => {
             const result = await axiosSecure.get(`/order?email=${user?.email}`);
+            console.log(result);
             return result.data;
         }
     });
@@ -92,7 +93,10 @@ const UserOrder = () => {
                                             <p className="text-sm font-bold text-accent">${order.totalAmount}</p>
                                         </td>
                                         <td className="px-6 py-4">
-                                            <StatusBadge status={order.status} />
+                                            {/* <StatusBadge status={order?.status} /> */}
+                                          {
+                                            order?.status
+                                          }
                                         </td>
                                         <td className="px-6 py-4 text-right">
                                             <button

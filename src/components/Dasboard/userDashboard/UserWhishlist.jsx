@@ -5,22 +5,24 @@ import useAxios from '../../../hooks/useAxios';
 import Loading from '../../loading/Loading';
 import { Heart, ShoppingCart, Trash2, ExternalLink, PackageOpen } from 'lucide-react';
 import toast from 'react-hot-toast';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const UserWhishlist = () => {
     const axiosInstance = useAxios();
+    const axiosSecure = useAxiosSecure()
     const { user } = useContext(AuthContex);
     const queryClient = useQueryClient();
 
     const { isLoading, data: wishlist = [] } = useQuery({
         queryKey: ['wishlist', user?.email],
         queryFn: async () => {
-            const result = await axiosInstance.get(`/wishlist?email=${user.email}`);
+            const result = await axiosSecure.get(`/wishlist?email=${user.email}`);
             return result.data;
         }
     });
 
     const deleteMutation = useMutation({
-        mutationFn: (id) => axiosInstance.delete(`/wishlist/${id}`),
+        mutationFn: (id) => axiosSecure .delete(`/wishlist/${id}`),
         onSuccess: () => {
             queryClient.invalidateQueries(['wishlist']);
             toast.success("Item removed");
@@ -31,7 +33,7 @@ const UserWhishlist = () => {
 
     return (
         <div className="space-y-6 animate-in fade-in duration-500">
-            {/* হেডার */}
+          
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <h2 className="text-2xl font-bold text-text-main tracking-tight">My Wishlist</h2>
@@ -49,7 +51,7 @@ const UserWhishlist = () => {
                     <p className="text-sm text-text-muted">Explore products and save your favorites!</p>
                 </div>
             ) : (
-                /* উইশলিস্ট টেবিল */
+              
                 <div className="bg-bg-secondary rounded-3xl border border-border-color overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="w-full text-left border-collapse">
@@ -94,6 +96,7 @@ const UserWhishlist = () => {
                                         <td className="px-6 py-4 text-right">
                                             <div className="flex items-center justify-end gap-2">
                                                 <button 
+                                                
                                                     className="p-2.5 bg-accent/10 text-accent rounded-xl hover:bg-accent hover:text-white transition-all"
                                                     title="Add to Cart"
                                                 >

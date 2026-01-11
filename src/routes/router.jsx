@@ -24,6 +24,9 @@ import AdminOrderView from "../components/Dasboard/DashboardComponent/AdminOrder
 import AdminUserView from "../components/Dasboard/DashboardComponent/AdminUserView";
 import PaymentSuccess from "../components/Payment/PaymentSuccess";
 import PaymentFail from "../components/Payment/PaymentFail";
+import UserReview from "../components/Dasboard/userDashboard/UserReview";
+import AdminSupport from "../components/Dasboard/DashboardComponent/AdminSupport";
+import UserSupport from "../components/Dasboard/userDashboard/UserSupport";
 
 
 
@@ -133,6 +136,18 @@ export const router = createBrowserRouter([
       {
         path:'/dashboard/users',
         Component:AdminUserView
+      },
+      {
+        path:'/dashboard/user/reviews',
+        Component:UserReview
+      },
+      {
+        path:'/dashboard/support',
+        Component:AdminSupport
+      },
+      {
+        path:'/dashboard/user/support',
+        Component:UserSupport
       }
     ]
   },
