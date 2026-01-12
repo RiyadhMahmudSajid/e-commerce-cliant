@@ -1,30 +1,26 @@
 import { Heart, ShoppingCart, Star } from 'lucide-react';
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContex } from '../../../providers/AuthProvider';
+import useWhislist from '../../../hooks/useWhislist';
+import toast from 'react-hot-toast';
+import { CartContext } from '../../../providers/CartProvider';
 
-const ShowCategory = ({filterCategorie}) => {
+const ShowCategory = ({ filterCategorie }) => {
     const { photo, name, discount, description, rating, price, oldPrice } = filterCategorie
+    const { user } = useContext(AuthContex)
+    const {addToCart} = useContext(CartContext)
+    const { handleWhislist } = useWhislist()
     console.log(filterCategorie);
     return (
         <section className="">
             <div className="">
-
-                {/* Header */}
-                {/* <div className="text-center mb-12">
-                    <h2 className="text-4xl font-bold text-text-main mb-4">
-                        Featured Products
-                    </h2>
-                    <p className="text-text-muted text-lg">
-                        Discover our hand-picked selection of premium products
-                    </p>
-                </div> */}
-
 
 
                 <div
 
                     className="group bg-bg-secondary rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
                 >
-               
+
                     <div className="relative overflow-hidden aspect-square">
                         <img
                             src={photo}
@@ -34,11 +30,17 @@ const ShowCategory = ({filterCategorie}) => {
 
                         {discount && (
                             <span className="absolute top-3 left-3 bg-danger text-white px-3 py-1 rounded-full text-xs font-black">
-                                -{discount}
+                                -{discount}%
                             </span>
                         )}
 
-                        <button className="absolute top-3 right-3 p-2 bg-bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-accent-soft">
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation(); if (!user) {
+                                    return toast.error("Please login first!");
+                                } handleWhislist(filterCategorie);
+                            }}
+                            className="absolute top-3 right-3 p-2 bg-bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-accent-soft">
                             <Heart className="w-5 h-5 text-text-muted hover:text-danger transition-colors" />
                         </button>
                     </div>
@@ -49,13 +51,13 @@ const ShowCategory = ({filterCategorie}) => {
                             {name}
                         </h3>
 
-      
+
                         <p className="text-sm text-text-muted mb-3">
                             {description?.split(' ').slice(0, 5).join(' ')}
                             {description?.split(' ').length > 5 && ' ...'}
                         </p>
 
-            
+
                         <div className="flex items-center mb-3">
                             <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                             <span className="ml-2 text-sm text-text-muted">
@@ -63,7 +65,7 @@ const ShowCategory = ({filterCategorie}) => {
                             </span>
                         </div>
 
- 
+
                         <div className="flex items-center justify-between">
                             <div>
                                 <div className="flex items-center gap-2">
@@ -79,7 +81,9 @@ const ShowCategory = ({filterCategorie}) => {
                                 </div>
                             </div>
 
-                            <button className="p-3 bg-accent hover:bg-accent-hover text-white rounded-lg transition-colors shadow-md shadow-accent/20">
+                            <button
+                                onClick={(e) => { e.stopPropagation(); addToCart(product) }}
+                                className="p-3 bg-accent hover:bg-accent-hover text-white rounded-lg transition-colors shadow-md shadow-accent/20">
                                 <ShoppingCart className="w-5 h-5" />
                             </button>
                         </div>

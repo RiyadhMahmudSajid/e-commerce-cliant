@@ -1,14 +1,18 @@
 import { Star, ShoppingCart, Heart } from 'lucide-react';
 import useProduct from '../../../hooks/useProduct';
 import Loading from '../../loading/Loading';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import useWhislist from '../../../hooks/useWhislist';
 import { motion } from 'motion/react';
+import { AuthContex } from '../../../providers/AuthProvider';
+import toast from 'react-hot-toast';
+import { CartContext } from '../../../providers/CartProvider';
 
 const AllProducts = () => {
-   
+
     const { isLoading, products } = useProduct()
+    const { user } = useContext(AuthContex)
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -16,6 +20,7 @@ const AllProducts = () => {
     const { handleWhislist } = useWhislist()
     const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
     const navigate = useNavigate()
+    const {addToCart} = useContext(CartContext)
     const totalPages = Math.ceil(products.length / itemsPerPage);
     const pags = [...Array(totalPages).keys()].map(p => p + 1);
 
@@ -49,12 +54,16 @@ const AllProducts = () => {
 
                                     {product.discount && (
                                         <span className="absolute top-3 left-3 bg-danger text-white px-3 py-1 rounded-full text-xs font-black">
-                                            -{product.discount}
+                                            -{product.discount}%
                                         </span>
                                     )}
 
                                     <button
-                                        onClick={(e) => { handleWhislist(product); e.stopPropagation() }}
+                                        onClick={(e) => {
+                                            e.stopPropagation(); if (!user) {
+                                                return toast.error("Please login first!");
+                                            } handleWhislist(product);
+                                        }}
                                         className="absolute top-3 right-3 p-2 bg-bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-accent-soft">
                                         <Heart className="w-5 h-5 text-text-muted hover:text-danger transition-colors" />
                                     </button>
@@ -92,7 +101,7 @@ const AllProducts = () => {
                                         </div>
 
                                         <button
-                                            onClick={(e) => { e.stopPropagation(); }}
+                                            onClick={(e) => { e.stopPropagation(); addToCart(product)}}
                                             className="p-3 bg-accent hover:bg-accent-hover text-white rounded-lg transition-colors shadow-md shadow-accent/20">
                                             <ShoppingCart className="w-5 h-5" />
                                         </button>
@@ -107,7 +116,7 @@ const AllProducts = () => {
                     <button
                         disabled={currentPage === 1}
                         onClick={() => setCurrentPage(prev => prev - 1)}
-                        className={`px-4 py-2 rounded-lg border text-sm ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-accent hover:text-white'}`}
+                        className={`px-4 py-2 rounded-lg border border-black dark:border-white text-sm text-black dark:text-white ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-accent hover:text-white'}`}
                     >
                         Prev
                     </button>
@@ -116,7 +125,7 @@ const AllProducts = () => {
                         <button
                             key={page}
                             onClick={() => setCurrentPage(page)}
-                            className={`px-4 py-2 rounded-lg border text-sm transition ${currentPage === page ? 'bg-accent text-white' : 'hover:bg-accent-soft'}`}
+                            className={`px-4 py-2 rounded-lg border text-black dark:text-white text-sm transition ${currentPage === page ? 'bg-accent text-white' : 'hover:bg-accent-soft'}`}
                         >
                             {page}
                         </button>
@@ -125,7 +134,7 @@ const AllProducts = () => {
                     <button
                         disabled={currentPage === totalPages}
                         onClick={() => setCurrentPage(prev => prev + 1)}
-                        className={`px-4 py-2 rounded-lg border text-sm ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : 'hover:bg-accent hover:text-white'}`}
+                        className={`px-4 py-2 rounded-lg border border-black dark:border-white  text-black dark:text-white text-sm ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : 'hover:bg-accent hover:text-white'}`}
                     >
                         Next
                     </button>

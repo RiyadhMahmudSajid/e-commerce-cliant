@@ -1,87 +1,118 @@
 import React from 'react';
-import { Facebook, Twitter, Instagram, Github, ArrowUpRight } from 'lucide-react';
+import { Link } from 'react-router'; 
+import { 
+    Facebook, Twitter, Instagram, Linkedin, 
+    CreditCard, Wallet, ShieldCheck, ExternalLink,
+    ChevronRight
+} from 'lucide-react';
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="bg-bg-secondary border-t border-border-color/50 pt-16 pb-8 transition-colors duration-500">
-            <div className="max-w-7xl mx-auto px-6 lg:px-12">
-
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-16">
-
-                    {/* Brand Column */}
-                    <div className="col-span-2 lg:col-span-2 space-y-6">
-                        <h2 className="text-2xl font-black tracking-tighter text-text-main">
-                            LUXE<span className="text-accent">.</span>
-                        </h2>
-                        <p className="max-w-xs text-sm text-text-muted leading-relaxed font-medium">
-                            Redefining the digital shopping experience with precision, aesthetics, and high-performance technology.
+        <footer className="bg-[#0A0A0A] text-white pt-24 pb-12 border-t border-white/5 font-sans">
+            <div className="max-w-7xl mx-auto px-6">
+                
+              
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-16 pb-16">
+               
+                    <div className="md:col-span-5 space-y-8">
+                        <Link to="/" className="text-3xl font-black tracking-tighter uppercase italic group inline-block">
+                            Shop<span className="text-accent group-hover:text-white transition-colors">Hub</span>
+                        </Link>
+                        <p className="text-gray-400 text-base leading-relaxed max-w-sm font-medium">
+                            Redefining the digital shopping experience with premium quality and unparalleled trust. Your satisfaction is our mission.
                         </p>
-                        <div className="flex gap-4">
-                            {[Facebook, Twitter, Instagram, Github].map((Icon, index) => (
-                                <a 
-                                    key={index} 
-                                    href="#" 
-                                    className="w-9 h-9 rounded-full border border-border-color flex items-center justify-center text-text-muted hover:text-accent hover:border-accent transition-all"
-                                >
-                                    <Icon size={16} />
-                                </a>
-                            ))}
+                        <div className="flex gap-4 pt-2">
+                            <SocialIcon icon={<Facebook size={20} />} to="https://facebook.com" />
+                            <SocialIcon icon={<Instagram size={20} />} to="https://instagram.com" />
+                            <SocialIcon icon={<Twitter size={20} />} to="https://twitter.com" />
+                            <SocialIcon icon={<Linkedin size={20} />} to="https://linkedin.com" />
                         </div>
                     </div>
 
-                    {/* Links Columns */}
-                    <div>
-                        <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-text-main mb-6">Shop</h4>
-                        <ul className="space-y-4 text-sm text-text-muted">
-                            {['All Products', 'Featured', 'New Arrivals', 'Discounts'].map(item => (
-                                <li key={item} className="hover:text-accent cursor-pointer transition-colors font-medium">{item}</li>
-                            ))}
+       
+                    <div className="md:col-span-3">
+                        <h3 className="text-[11px] font-black uppercase tracking-[0.3em] mb-8 text-accent/90">Navigation</h3>
+                        <ul className="space-y-5">
+                            <FooterLink to="/" label="Home" />
+                            <FooterLink to="/products" label="Browse Shop" />
+                            <FooterLink to="/deals" label="Exclusive Deals" />
+                            <FooterLink to="/dashboard/user/profile" label="My Account" />
                         </ul>
                     </div>
 
-                    <div>
-                        <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-text-main mb-6">Company</h4>
-                        <ul className="space-y-4 text-sm text-text-muted">
-                            {['Our Story', 'Careers', 'Terms of Service', 'Privacy'].map(item => (
-                                <li key={item} className="hover:text-accent cursor-pointer transition-colors font-medium">{item}</li>
-                            ))}
-                        </ul>
+             
+                    <div className="md:col-span-4">
+                        <h3 className="text-[11px] font-black uppercase tracking-[0.3em] mb-8 text-accent/90">Security & Verified</h3>
+                        <div className="space-y-6">
+                            <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.02] border border-white/5 group hover:border-accent/30 transition-all">
+                                <ShieldCheck size={22} className="text-green-500 mt-0.5" />
+                                <div>
+                                    <h4 className="text-sm font-bold uppercase tracking-tight">Verified Secure</h4>
+                                    <p className="text-[11px] text-gray-500 font-medium">100% encrypted checkout process.</p>
+                                </div>
+                            </div>
+                            
+                            <div className="flex items-center gap-6 px-2 opacity-70">
+                                <div className="flex flex-col items-center gap-1">
+                                    <Wallet size={20} className="text-gray-400" />
+                                    <span className="text-[9px] font-black uppercase tracking-tighter">Mastercard</span>
+                                </div>
+                                <div className="flex flex-col items-center gap-1">
+                                    <CreditCard size={20} className="text-gray-400" />
+                                    <span className="text-[9px] font-black uppercase tracking-tighter">Visa</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <div>
-                        <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-text-main mb-6">Support</h4>
-                        <ul className="space-y-4 text-sm text-text-muted">
-                            {['Help Center', 'Track Order', 'Contact Us', 'Returns'].map(item => (
-                                <li key={item} className="flex items-center gap-1 group hover:text-accent cursor-pointer transition-colors font-medium">
-                                    {item} <ArrowUpRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
                 </div>
 
-                {/* Bottom Bar */}
-                <div className="pt-8 border-t border-border-color/30 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest">
-                        © {currentYear} Luxe Digital. All rights reserved.
-                    </p>
-
-                    <div className="flex gap-8 items-center">
-                        <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest cursor-pointer hover:text-text-main transition-colors">
-                            Bangladesh — Global
+         
+                <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div className="flex flex-col md:flex-row items-center gap-4">
+                        <p className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em]">
+                            © {currentYear} SHOPHUB INC.
                         </p>
-                        <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
-                            <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest">System Status: Optimal</p>
-                        </div>
+                        <span className="hidden md:block w-1 h-1 bg-gray-800 rounded-full"></span>
+                        <p className="text-[10px] font-bold text-gray-600 uppercase tracking-widest">
+                            Established 2026
+                        </p>
+                    </div>
+
+                    <div className="flex items-center gap-2 text-[10px] text-gray-500 font-bold uppercase tracking-widest group cursor-default">
+                        <span>Built with Passion</span>
+                        <ExternalLink size={10} className="group-hover:text-accent transition-colors" />
                     </div>
                 </div>
             </div>
         </footer>
     );
 };
+
+
+
+const FooterLink = ({ to, label }) => (
+    <li>
+        <Link 
+            to={to} 
+            className="group flex items-center gap-2 text-gray-400 hover:text-white text-sm font-bold transition-all duration-300"
+        >
+            <ChevronRight size={12} className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all text-accent" />
+            {label}
+        </Link>
+    </li>
+);
+
+const SocialIcon = ({ icon, to }) => (
+    <a 
+        href={to} 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="w-12 h-12 rounded-2xl bg-white/[0.03] flex items-center justify-center hover:bg-accent hover:text-black transition-all duration-500 border border-white/5 hover:-translate-y-1 hover:shadow-2xl hover:shadow-accent/10"
+    >
+        {icon}
+    </a>
+);
 
 export default Footer;

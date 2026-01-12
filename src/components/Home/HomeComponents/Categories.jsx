@@ -2,10 +2,11 @@ import { ChevronRight } from 'lucide-react';
 import { motion } from 'motion/react';
 import Loading from '../../loading/Loading';
 import useCategory from '../../../hooks/useCategory';
+import { useNavigate } from 'react-router';
 
 const Categories = () => {
   const { isLoading, categories } = useCategory();
-
+  const navigate = useNavigate()
   if (isLoading) return <Loading />;
 
   return (
@@ -59,12 +60,13 @@ const Categories = () => {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
           {categories?.map((category, index) => (
             <motion.div
+              onClick={() => navigate(`category/${category.category}`)}
               key={category._id || category.id}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 * index, duration: 0.5 }}
               viewport={{ once: true }}
-              className="group cursor-pointer"
+              className="group cursor-pointer transition-all duration-300"
             >
               <motion.div
                 whileHover={{ scale: 1.05 }}

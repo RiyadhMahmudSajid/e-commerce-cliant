@@ -1,8 +1,10 @@
-import { ArrowRight, Play, Sparkles } from "lucide-react";
+import { ArrowRight, Info, Play, Sparkles } from "lucide-react";
 import { motion } from "motion/react";
 import heroImage from "../../../assets/Hero1.png";
+import { useNavigate } from "react-router";
 
 export default function Hero() {
+  const navigate = useNavigate()
   return (
     <motion.section
       initial={{ scale: 1.05, opacity: 0 }}
@@ -57,21 +59,23 @@ export default function Hero() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-text-main text-bg-primary font-semibold transition-all hover:bg-accent hover:shadow-lg active:scale-95"
+                onClick={()=>navigate('/products')}
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-text-main text-bg-primary font-semibold transition-all duration-300 hover:bg-accent hover:shadow-lg active:scale-95"
               >
                 Start Exploring
                 <ArrowRight size={18} />
               </motion.button>
 
               <motion.button
+               onClick={()=>{navigate('/learnmore')}}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="inline-flex items-center gap-3 text-text-main font-medium hover:text-accent transition"
               >
                 <span className="w-11 h-11 flex items-center justify-center rounded-full border border-border-color">
-                  <Play size={14} className="ml-0.5" />
+                  <Info size={14} className="ml-0.5" />
                 </span>
-                Watch Story
+                Learn More
               </motion.button>
             </div>
 

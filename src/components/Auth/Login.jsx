@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { NavLink, useNavigate } from 'react-router';
 import { AuthContex } from '../../providers/AuthProvider';
+import SocialLogin from './SocialLogin';
 
 
 const Login = () => {
@@ -11,7 +12,8 @@ const Login = () => {
     const onSubmit = async (data) => {
 
         await signInUser(data.email, data.password)
-        
+        navigate(`${location.state?location.state : '/'}`);
+
     };
 
     return (
@@ -53,7 +55,7 @@ const Login = () => {
                     </div>
 
                     <button
-                        
+
                         type="submit"
                         className="w-full bg-accent hover:bg-accent-hover text-white py-3.5 rounded-xl font-bold text-sm transition-all mt-2 active:scale-95 shadow-md shadow-accent/10"
                     >
@@ -67,10 +69,9 @@ const Login = () => {
                     <div className="h-px bg-border-color flex-1"></div>
                 </div>
 
-                <button className="w-full flex items-center justify-center gap-2 py-3 border border-border-color rounded-xl hover:bg-bg-secondary transition-all text-sm font-semibold text-text-main active:scale-95">
-                    <img src="https://www.svgrepo.com/show/355037/google.svg" className="w-4 h-4" alt="Google" />
-                    Sign in with Google
-                </button>
+                <div>
+                    <SocialLogin></SocialLogin>
+                </div>
 
                 <p className="text-center text-sm text-text-muted mt-8 font-medium">
                     New to ShopHub?{' '}

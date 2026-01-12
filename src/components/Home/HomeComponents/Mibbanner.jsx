@@ -1,70 +1,73 @@
+import React from 'react';
 import { Sparkles, ArrowRight } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
+import ctaimg from '/cta.avif'
 
 export default function Mibbanner() {
   return (
-    <section className="py-12 bg-surface transition-colors duration-500">
+    
+    <section className="py-12 bg-background transition-colors duration-500">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full">
-        <div className="relative overflow-hidden rounded-2xl bg-bg-secondary border border-border-color/50 shadow-sm flex flex-col lg:flex-row items-stretch">
-
+        
+        
+        <div className="relative overflow-hidden rounded-3xl bg-bg-secondary border border-border-color shadow-sm flex flex-col lg:flex-row items-stretch">
+          
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="flex-1 p-8 lg:p-12 flex flex-col justify-center space-y-6 relative z-10"
+            className="flex-1 p-8 lg:p-14 flex flex-col justify-center space-y-6 relative z-10"
           >
-            <div className="space-y-3">
+            <div className="space-y-4">
+             
               <div className="flex items-center gap-2 text-accent">
-                <Sparkles size={14} />
+                <Sparkles size={16} fill="currentColor" />
                 <span className="text-xs font-black uppercase tracking-[0.2em]">Limited Access</span>
               </div>
 
-              <h2 className="text-3xl lg:text-5xl font-bold text-text-main tracking-tight leading-tight">
-                Summer Sale <span className="text-accent">Live.</span>
+             
+              <h2 className="text-4xl lg:text-6xl font-black text-text-main tracking-tighter leading-tight">
+                Summer Sale <span className="text-accent italic">Live.</span>
               </h2>
 
-              <p className="max-w-md text-sm lg:text-base text-text-muted font-medium opacity-90 leading-relaxed">
+              <p className="max-w-md text-sm lg:text-base text-text-muted font-medium leading-relaxed">
                 Experience premium performance with our seasonal collection. Up to 50% off for a limited time.
               </p>
             </div>
 
             <div className="flex flex-wrap items-center gap-8">
+             
               <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-6 py-3 bg-text-main text-bg-primary hover:bg-accent hover:text-white rounded-xl font-bold transition-all flex items-center gap-2 text-sm"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="px-8 py-4 bg-accent text-white hover:bg-accent-hover rounded-2xl font-black uppercase text-xs tracking-widest transition-all flex items-center gap-3 shadow-lg shadow-accent/20"
               >
-                Shop Now <ArrowRight size={16} />
+                Shop Now <ArrowRight size={18} />
               </motion.button>
 
-              <div className="flex items-center gap-6 border-l border-border-color pl-6">
-                <div className="leading-none">
-                  <p className="text-xl font-black text-text-main">50%</p>
-                  <p className="text-[9px] uppercase tracking-tighter text-text-muted font-bold">Discount</p>
+              <div className="flex items-center gap-8 border-l border-border-color pl-8">
+                <div className="text-center">
+                  <p className="text-3xl font-black text-text-main">50%</p>
+                  <p className="text-[10px] uppercase tracking-widest text-text-muted font-bold mt-1">Discount</p>
                 </div>
-                <div className="leading-none">
-                  <p className="text-xl font-black text-text-main">07</p>
-                  <p className="text-[9px] uppercase tracking-tighter text-text-muted font-bold">Days Left</p>
+                <div className="text-center">
+                  <p className="text-3xl font-black text-text-main">07</p>
+                  <p className="text-[10px] uppercase tracking-widest text-text-muted font-bold mt-1">Days Left</p>
                 </div>
               </div>
             </div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="lg:w-2/5 relative min-h-[250px] lg:min-h-full overflow-hidden"
+            className="lg:w-2/5 relative min-h-[300px] lg:min-h-full overflow-hidden bg-surface"
           >
-            <motion.img
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.8 }}
-              src="https://images.pexels.com/photos/5632402/pexels-photo-5632402.jpeg?auto=compress&cs=tinysrgb&w=800"
+            <img
+              src={ctaimg}
               alt="Summer Sale"
-              className="absolute inset-0 w-full h-full object-cover grayscale-[30%] hover:grayscale-0 transition-all duration-1000"
+              className="absolute inset-0 w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
             />
+           
             <div className="absolute inset-0 bg-gradient-to-r from-bg-secondary via-transparent to-transparent hidden lg:block" />
           </motion.div>
 

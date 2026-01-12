@@ -67,7 +67,7 @@ export default function Navbar() {
                             <NavLink
                                 key={link.name}
                                 to={link.path}
-                                className={({ isActive }) => `text-sm font-bold transition-colors ${isActive ? "text-accent" : "text-text-muted hover:text-accent"}`}
+                                className={({ isActive }) => `text-md font-medium transition-colors ${isActive ? "text-accent" : "text-text-muted hover:text-accent"}`}
                             >
                                 {link.name}
                             </NavLink>
@@ -75,7 +75,7 @@ export default function Navbar() {
 
 
                         <div className='relative group py-4'>
-                            <button className="flex items-center gap-1 text-sm font-bold text-text-muted hover:text-accent transition-all">
+                            <button className="flex items-center gap-1 text-md font-medium text-text-muted hover:text-accent transition-all">
                                 Categories
                                 <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-300" />
                             </button>
@@ -109,7 +109,7 @@ export default function Navbar() {
                             {suggestions.length > 0 && (
                                 <ul className="absolute w-full bg-surface border border-border-color rounded-xl mt-2 shadow-2xl z-50 overflow-hidden">
                                     {suggestions.map(p => (
-                                        <li key={p._id} onClick={() => handleSearch(p.name)} className="px-4 py-2.5 text-sm cursor-pointer hover:bg-accent hover:text-white transition-colors">
+                                        <li key={p._id} onClick={() => handleSearch(p.name)} className="px-4 py-2.5 text-sm text-text-muted cursor-pointer hover:bg-accent hover:text-white transition-colors">
                                             {p.name}
                                         </li>
                                     ))}

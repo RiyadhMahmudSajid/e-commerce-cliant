@@ -5,13 +5,15 @@ import { ModalContex } from "../../../providers/ModalProvider";
 import axios from "axios";
 import useAxios from "../../../hooks/useAxios";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const AdminUpdateProduct = ({ product, refreshData }) => {
-    const axiosInstance = useAxios();
+
+    const axiosSecure = useAxiosSecure()
     const { setShowModal } = useContext(ModalContex);
-    
+
     const { register, handleSubmit, reset, formState: { isSubmitting } } = useForm({
-        defaultValues: product 
+        defaultValues: product
     });
 
     useEffect(() => {
@@ -40,8 +42,8 @@ const AdminUpdateProduct = ({ product, refreshData }) => {
                 updatedAt: new Date().toISOString()
             };
 
-            const result = await axiosInstance.patch(`/product/${product._id}`, updatedInfo);
-            
+            const result = await axiosSecure.patch(`/product/${product._id}`, updatedInfo);
+
             if (result.data.modifiedCount > 0 || result.data.acknowledged) {
                 toast.success("Product Updated!");
                 refreshData();

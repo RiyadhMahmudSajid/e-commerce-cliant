@@ -1,41 +1,41 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import useAxios from '../../../../hooks/useAxios';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { CheckCircle2, Clock, AlertCircle } from 'lucide-react';
+import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 
 const OrderStatusAnalytics = () => {
-    const axiosInstance = useAxios();
-
+  
+    const axiosSecure = useAxiosSecure()
     const { data: allorder = [], isLoading } = useQuery({
         queryKey: ['allorder'],
         queryFn: async () => {
-            const result = await axiosInstance.get('/allorder');
+            const result = await axiosSecure.get('/allorder');
             return result.data;
         }
     });
 
-    // ১. ডাইনামিকালি স্ট্যাটাস কাউন্ট করা
+ 
     const statusCounts = allorder.reduce((acc, order) => {
         const status = order.status || 'pending';
-        // প্রথম অক্ষর বড় হাতের করা (success -> Success)
+    
         const label = status.charAt(0).toUpperCase() + status.slice(1);
         acc[label] = (acc[label] || 0) + 1;
         return acc;
     }, {});
 
-    // ২. Object.entries ব্যবহার করে চার্ট ডেটা তৈরি
+
     const chartData = Object.entries(statusCounts).map(([name, value]) => ({
         name,
         value
     }));
 
-    // ৩. স্ট্যাটাস অনুযায়ী কালার ম্যাপ
+   
     const COLORS = {
-        Success: '#10B981', // Emerald
-        Pending: '#F59E0B', // Amber
-        Canceled: '#EF4444', // Red
-        Default: '#6366F1'  // Indigo
+        Success: '#10B981', 
+        Pending: '#F59E0B', 
+        Canceled: '#EF4444', 
+        Default: '#6366F1'  
     };
 
     if (isLoading) return <div className="p-10 text-center text-text-muted font-bold">Loading...</div>;
@@ -43,7 +43,7 @@ const OrderStatusAnalytics = () => {
     return (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
-            {/* বাম পাশে স্ট্যাটাস কার্ডস */}
+         
             <div className="lg:col-span-1 space-y-4">
                 {chartData.map((item) => (
                     <div key={item.name} className="bg-surface p-6 rounded-[2rem] border border-border-color flex items-center justify-between shadow-sm hover:shadow-md transition-shadow">
@@ -61,7 +61,7 @@ const OrderStatusAnalytics = () => {
                 ))}
             </div>
 
-            {/* ডান পাশে ডাইনামিক ডোনাট চার্ট */}
+        
             <div className="lg:col-span-2 bg-surface p-8 rounded-[2.5rem] border border-border-color h-[400px] flex flex-col shadow-sm">
                 <div className="mb-4">
                     <h3 className="text-sm font-black text-text-main uppercase tracking-[0.2em]">Order Distribution</h3>

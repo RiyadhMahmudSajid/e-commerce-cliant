@@ -15,6 +15,7 @@ import { CartContext } from '../../../providers/CartProvider';
 import { AuthContex } from '../../../providers/AuthProvider';
 import useAxios from '../../../hooks/useAxios';
 import toast from 'react-hot-toast';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const ProductDescrip = () => {
     const { id } = useParams();
@@ -23,7 +24,7 @@ const ProductDescrip = () => {
     const { addToCart } = useContext(CartContext);
     const [showZoom, setShowZoom] = useState(false);
     const [bgPos, setBgPos] = useState("50% 50%");
-    const axiosInstance = useAxios()
+     const axiosSecure = useAxiosSecure()
 
     if (isLoading) return <Loading />;
 
@@ -45,7 +46,7 @@ const ProductDescrip = () => {
             totalAmount: product.price,
             status: "pending",
         };
-        const response = await axiosInstance.post('/orders/create', orderInfo)
+        const response = await axiosSecure.post('/orders/create', orderInfo)
         console.log(response)
         if (response.data?.gateWayPageUrl) {
             window.location.replace(response.data.gateWayPageUrl)

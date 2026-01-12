@@ -13,6 +13,7 @@ const CartProvider = ({ children }) => {
   }, [cart]);
 
   const addToCart = (product) => {
+    console.log(product);
     setCart(prev => {
       const exist = prev.find(p => p._id === product._id);
 

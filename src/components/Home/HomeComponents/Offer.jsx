@@ -1,7 +1,9 @@
 import { Tag, Truck, Clock, Gift } from 'lucide-react';
 import { motion } from 'motion/react';
+import { useNavigate } from 'react-router';
 
 export default function Offers() {
+  const navigate = useNavigate()
   const offers = [
     {
       icon: Tag,
@@ -88,11 +90,12 @@ export default function Offers() {
             className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-pink-500 to-rose-600 p-8 text-white"
           >
             <div className="relative z-10">
-              <h3 className="text-3xl font-bold mb-2">Women's Fashion</h3>
-              <p className="text-pink-100 mb-4">Up to 40% off on trendy styles</p>
+              <h3 className="text-3xl font-bold mb-2">Some Product</h3>
+              <p className="text-pink-100 mb-4">Up to 10% off on trendy styles</p>
               <motion.button
+                onClick={() => navigate('/deals')}
                 whileHover={{ scale: 1.05 }}
-                className="bg-white text-rose-600 px-6 py-2 rounded-lg font-semibold hover:bg-pink-50 transition-colors"
+                className="bg-white text-rose-600 px-6 py-2 rounded-lg font-semibold  hover:bg-pink-50 transition-colors duration-300"
               >
                 Shop Now
               </motion.button>
@@ -108,11 +111,12 @@ export default function Offers() {
             className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 p-8 text-white"
           >
             <div className="relative z-10">
-              <h3 className="text-3xl font-bold mb-2">Electronics</h3>
+              <h3 className="text-3xl font-bold mb-2">All Product</h3>
               <p className="text-cyan-100 mb-4">Latest gadgets at best prices</p>
               <motion.button
+                onClick={() => navigate('/products')}
                 whileHover={{ scale: 1.05 }}
-                className="bg-white text-blue-600 px-6 py-2 rounded-lg font-semibold hover:bg-cyan-50 transition-colors"
+                className="bg-white text-blue-600 px-6 py-2 rounded-lg font-semibold hover:bg-cyan-50 transition-colors duration-300"
               >
                 Shop Now
               </motion.button>

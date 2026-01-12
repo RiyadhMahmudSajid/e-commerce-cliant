@@ -7,11 +7,14 @@ import { motion } from 'motion/react';
 import { useContext } from 'react';
 import { CartContext } from '../../../providers/CartProvider';
 import useWhislist from '../../../hooks/useWhislist';
+import { AuthContex } from '../../../providers/AuthProvider';
+import toast from 'react-hot-toast';
 
 const FeaturedProducts = () => {
   const axiosInstance = useAxios();
   const { addToCart } = useContext(CartContext)
   const { handleWhislist } = useWhislist()
+  const { user } = useContext(AuthContex)
   const navigate = useNavigate()
   const { isLoading, data: products = [] } = useQuery({
     queryKey: ['products'],
@@ -68,14 +71,23 @@ const FeaturedProducts = () => {
 
                 {product.discount && (
                   <span className="absolute top-3 left-3 bg-danger text-white px-3 py-1 rounded-full text-xs font-black">
-                    -{product.discount}
+                    -{product.discount}%
                   </span>
                 )}
 
-                <button className="absolute top-3 right-3 p-2 bg-bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-accent-soft">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation(); 
+                    if (!user) {
+                      return toast.error("Please login first!");
+                    }
+                    handleWhislist(product);
+                  }}
+                  className="absolute top-3 right-3 p-2 bg-bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-accent-soft"
+                >
                   <Heart
-                  onClick={(e)=>{e.stopPropagation();handleWhislist(product)}}
-                  className="w-5 h-5 text-text-muted hover:text-danger transition-colors" />
+                    className="w-5 h-5 text-text-muted hover:text-danger transition-colors"
+                  />
                 </button>
               </div>
 

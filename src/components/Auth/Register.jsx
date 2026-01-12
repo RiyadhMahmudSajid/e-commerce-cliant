@@ -11,16 +11,16 @@ import useAxios from '../../hooks/useAxios';
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { createUser , upDateUser , loading } = useContext(AuthContex);
-   const axiosInstance = useAxios();
-   
+    const { createUser, upDateUser, loading } = useContext(AuthContex);
+    const axiosInstance = useAxios();
 
-    const onSubmit = async(data) => {
+
+    const onSubmit = async (data) => {
         console.log(data);
-        try{
+        try {
 
-           await createUser(data.email,data.password)
-            const imageFile = data.photoURL[0]; 
+            await createUser(data.email, data.password)
+            const imageFile = data.photoURL[0];
             const formData = new FormData();
             formData.append('image', imageFile);
 
@@ -31,12 +31,12 @@ const Register = () => {
 
             console.log("Full imgbb response:", response);
             const imageUrl = response.data.data.url;
-              const userProfile = {
+            const userProfile = {
                 displayName: data.name,
                 photoURL: imageUrl
             };
-             await upDateUser(userProfile);
-              const userInfo = {
+            await upDateUser(userProfile);
+            const userInfo = {
                 name: data.name,
                 email: data.email,
                 photo: imageUrl,
@@ -45,24 +45,24 @@ const Register = () => {
                 last_login: new Date().toISOString()
             };
 
-            const result = await axiosInstance.post('/users',userInfo)
+            const result = await axiosInstance.post('/users', userInfo)
             console.log(result);
-            if(result.data.insertedId){
+            if (result.data.insertedId) {
 
                 toast.success("Account created successfully")
             }
 
-        }catch(err){
+        } catch (err) {
             console.log(err);
         }
-       
 
-    
+
+
     };
 
     return (
         <div className="min-h-screen bg-bg-primary flex flex-col items-center justify-center px-4 py-10 transition-colors duration-300">
-            
+
             <div className="mb-8 text-center">
                 <h1 className="text-3xl font-bold text-text-main">ShopHub</h1>
                 <p className="text-text-muted text-sm mt-1">Create your account to start shopping</p>
@@ -70,7 +70,7 @@ const Register = () => {
 
             <div className="w-full max-w-[400px] bg-bg-primary border border-border-color p-8 rounded-3xl shadow-sm">
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-                    
+
                     <div className="flex flex-col gap-1.5">
                         <label htmlFor='name' className="text-sm font-semibold text-text-main">Full Name</label>
                         <input
@@ -100,7 +100,7 @@ const Register = () => {
                         <input
                             type="password"
                             id='password'
-                            {...register("password", { 
+                            {...register("password", {
                                 required: "Password is required",
                                 minLength: { value: 6, message: "Min 6 characters" }
                             })}
@@ -114,7 +114,7 @@ const Register = () => {
                         <input
                             type="file"
                             id='photoURL'
-                            {...register("photoURL", { 
+                            {...register("photoURL", {
                                 required: "Photo is required",
                                 minLength: { value: 6, message: "Photo is required" }
                             })}
@@ -139,10 +139,9 @@ const Register = () => {
                     <div className="h-px bg-border-color flex-1"></div>
                 </div>
 
-                <button className="w-full flex items-center justify-center gap-2 py-3 border border-border-color rounded-xl hover:bg-bg-secondary transition-all text-sm font-semibold text-text-main">
-                    <img src="https://www.svgrepo.com/show/355037/google.svg" className="w-4 h-4" alt="G" />
-                    Sign up with Google
-                </button>
+                <div>
+                    <SocialLogin></SocialLogin>
+                </div>
 
                 <p className="text-center text-sm text-text-muted mt-8 font-medium">
                     Have an account?{' '}

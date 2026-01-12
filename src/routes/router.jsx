@@ -27,6 +27,10 @@ import PaymentFail from "../components/Payment/PaymentFail";
 import UserReview from "../components/Dasboard/userDashboard/UserReview";
 import AdminSupport from "../components/Dasboard/DashboardComponent/AdminSupport";
 import UserSupport from "../components/Dasboard/userDashboard/UserSupport";
+import Deals from "../components/Home/HomeComponents/Deals";
+import LearnMore from "../components/Home/HomeComponents/LearnMore";
+import PrivateRoute from "./PrivateRoute";
+import NotFound from "../components/NotFound/NotFound";
 
 
 
@@ -64,16 +68,24 @@ export const router = createBrowserRouter([
       },
       {
         path: "/checkout",
-        Component: CheckoutPage
+        element: <PrivateRoute><CheckoutPage></CheckoutPage></PrivateRoute>
       },
       {
-        path:'/payment/success/:tranId',
-        Component:PaymentSuccess
+        path: '/payment/success/:tranId',
+        element:  <PrivateRoute><PaymentSuccess></PaymentSuccess></PrivateRoute>
       },
 
       {
-        path:'/payment/fail',
-        Component:PaymentFail
+        path: '/payment/fail',
+        Component: PaymentFail
+      },
+      {
+        path: '/deals',
+        Component: Deals
+      },
+      {
+        path: '/learnmore',
+        Component: LearnMore
       }
     ]
   },
@@ -94,7 +106,7 @@ export const router = createBrowserRouter([
 
   {
     path: '/dashboard',
-    Component: DashboardLayout,
+    element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
     children: [
       {
         index: true,
@@ -122,35 +134,39 @@ export const router = createBrowserRouter([
         Component: UserProfile
       },
       {
-        path:'/dashboard/user/my-orders',
-        Component:UserOrder
+        path: '/dashboard/user/my-orders',
+        Component: UserOrder
       },
       {
-        path:'/dashboard/user/wishlist',
-        Component:UserWhishlist
+        path: '/dashboard/user/wishlist',
+        Component: UserWhishlist
       },
       {
-        path:'/dashboard/orders',
-        Component:AdminOrderView
+        path: '/dashboard/orders',
+        Component: AdminOrderView
       },
       {
-        path:'/dashboard/users',
-        Component:AdminUserView
+        path: '/dashboard/users',
+        Component: AdminUserView
       },
       {
-        path:'/dashboard/user/reviews',
-        Component:UserReview
+        path: '/dashboard/user/reviews',
+        Component: UserReview
       },
       {
-        path:'/dashboard/support',
-        Component:AdminSupport
+        path: '/dashboard/support',
+        Component: AdminSupport
       },
       {
-        path:'/dashboard/user/support',
-        Component:UserSupport
+        path: '/dashboard/user/support',
+        Component: UserSupport
       }
     ]
   },
+  {
+    path: '*',
+    element: <NotFound></NotFound>
+  }
 
 
 

@@ -8,7 +8,7 @@ const PaymentSuccess = () => {
         <div className="min-h-screen bg-bg-secondary flex items-center justify-center p-4">
             <div className="max-w-md w-full bg-bg-primary rounded-3xl p-8 border border-border-color shadow-2xl text-center">
 
-                {/* Success Icon */}
+              
                 <div className="w-20 h-20 bg-accent-soft rounded-full flex items-center justify-center mx-auto mb-6">
                     <svg className="w-10 h-10 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />

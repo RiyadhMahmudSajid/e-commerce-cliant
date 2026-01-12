@@ -1,18 +1,18 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { AuthContex } from '../../../providers/AuthProvider';
-import useAxios from '../../../hooks/useAxios';
 import Loading from '../../loading/Loading';
 import { Heart, ShoppingCart, Trash2, ExternalLink, PackageOpen } from 'lucide-react';
 import toast from 'react-hot-toast';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { CartContext } from '../../../providers/CartProvider';
+import { Link } from 'react-router';
 
 const UserWhishlist = () => {
-    const axiosInstance = useAxios();
     const axiosSecure = useAxiosSecure()
     const { user } = useContext(AuthContex);
     const queryClient = useQueryClient();
-
+    const { addToCart, cart } = useContext(CartContext)
     const { isLoading, data: wishlist = [] } = useQuery({
         queryKey: ['wishlist', user?.email],
         queryFn: async () => {
@@ -22,7 +22,7 @@ const UserWhishlist = () => {
     });
 
     const deleteMutation = useMutation({
-        mutationFn: (id) => axiosSecure .delete(`/wishlist/${id}`),
+        mutationFn: (id) => axiosSecure.delete(`/wishlist/${id}`),
         onSuccess: () => {
             queryClient.invalidateQueries(['wishlist']);
             toast.success("Item removed");
@@ -30,18 +30,26 @@ const UserWhishlist = () => {
     });
 
     if (isLoading) return <Loading />;
-
+    const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
     return (
         <div className="space-y-6 animate-in fade-in duration-500">
-          
+
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <h2 className="text-2xl font-bold text-text-main tracking-tight">My Wishlist</h2>
                     <p className="text-sm text-text-muted font-medium">You have {wishlist.length} items saved in your wishlist</p>
                 </div>
-                <button className="flex items-center gap-2 px-5 py-2.5 bg-accent text-white rounded-xl text-sm font-bold shadow-lg shadow-accent/20 hover:scale-105 transition-all">
-                    <ShoppingCart size={18} /> Add All to Cart
-                </button>
+                <div className='flex gap-5'>
+                    <button
+                        onClick={() => { addToCart(wishlist) }}
+                        className="flex items-center gap-2 px-5 py-2.5 bg-accent text-white rounded-xl text-sm font-bold shadow-lg shadow-accent/20 hover:scale-105 transition-all">
+                        <ShoppingCart size={18} /> Add All to Cart
+                    </button>
+                    <Link to='/cart' className="relative p-2.5 rounded-xl bg-accent text-white shadow-lg shadow-accent/20 group">
+                        <ShoppingCart size={18} className="group-hover:scale-110 transition-transform" />
+                        <span className="absolute -top-1.5 -right-1.5 bg-danger text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center ring-2 ring-surface">{totalCount}</span>
+                    </Link>
+                </div>
             </div>
 
             {wishlist.length === 0 ? (
@@ -51,7 +59,7 @@ const UserWhishlist = () => {
                     <p className="text-sm text-text-muted">Explore products and save your favorites!</p>
                 </div>
             ) : (
-              
+
                 <div className="bg-bg-secondary rounded-3xl border border-border-color overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="w-full text-left border-collapse">
@@ -69,9 +77,9 @@ const UserWhishlist = () => {
                                         <td className="px-6 py-4">
                                             <div className="flex items-center gap-4">
                                                 <div className="w-14 h-14 rounded-xl bg-bg-primary border border-border-color overflow-hidden flex-shrink-0">
-                                                    <img 
-                                                        src={item.image} 
-                                                        alt={item.name} 
+                                                    <img
+                                                        src={item.image}
+                                                        alt={item.name}
                                                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                                     />
                                                 </div>
@@ -95,14 +103,16 @@ const UserWhishlist = () => {
                                         </td>
                                         <td className="px-6 py-4 text-right">
                                             <div className="flex items-center justify-end gap-2">
-                                                <button 
-                                                
+                                                <button
+
+                                                    onClick={() => { addToCart(item) }}
                                                     className="p-2.5 bg-accent/10 text-accent rounded-xl hover:bg-accent hover:text-white transition-all"
                                                     title="Add to Cart"
+
                                                 >
                                                     <ShoppingCart size={16} />
                                                 </button>
-                                                <button 
+                                                <button
                                                     onClick={() => deleteMutation.mutate(item._id)}
                                                     className="p-2.5 bg-red-500/10 text-red-500 rounded-xl hover:bg-red-500 hover:text-white transition-all"
                                                     title="Remove"

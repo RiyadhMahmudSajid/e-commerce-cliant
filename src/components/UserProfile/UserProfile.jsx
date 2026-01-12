@@ -12,6 +12,7 @@ const UserProfile = () => {
     const { user } = useContext(AuthContex);
     const { role } = useUserRole();
     const { showModal, setShowModal } = useContext(ModalContex)
+    
     return (
         <div className="space-y-6 animate-in fade-in duration-500">
 
