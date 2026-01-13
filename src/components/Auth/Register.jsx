@@ -7,11 +7,12 @@ import axios from 'axios';
 
 import toast from 'react-hot-toast';
 import useAxios from '../../hooks/useAxios';
+import SocialLogin from './SocialLogin';
 
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { createUser, upDateUser, loading } = useContext(AuthContex);
+    const { createUser, upDateUser } = useContext(AuthContex);
     const axiosInstance = useAxios();
 
 
@@ -109,6 +110,7 @@ const Register = () => {
                         />
                         {errors.password && <span className="text-danger text-xs">{errors.password.message}</span>}
                     </div>
+                     
                     <div className="flex flex-col gap-1.5">
                         <label className="text-sm font-semibold text-text-main" htmlFor='photoURL'>Photo</label>
                         <input
@@ -121,7 +123,7 @@ const Register = () => {
                             className="w-full px-4 py-3 bg-bg-secondary border border-border-color rounded-xl text-text-main focus:outline-none focus:border-accent transition-all text-sm"
                             placeholder="••••••••"
                         />
-                        {errors.password && <span className="text-danger text-xs">{errors.password.message}</span>}
+                        {errors.photoURL && <span className="text-danger text-xs">{errors.photoURL.message}</span>}
                     </div>
 
 

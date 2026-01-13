@@ -16,6 +16,7 @@ import { AuthContex } from '../../../providers/AuthProvider';
 import useAxios from '../../../hooks/useAxios';
 import toast from 'react-hot-toast';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import useWhislist from '../../../hooks/useWhislist';
 
 const ProductDescrip = () => {
     const { id } = useParams();
@@ -23,8 +24,9 @@ const ProductDescrip = () => {
     const { products, isLoading } = useProduct();
     const { addToCart } = useContext(CartContext);
     const [showZoom, setShowZoom] = useState(false);
+    const {handleWhislist} = useWhislist()
     const [bgPos, setBgPos] = useState("50% 50%");
-     const axiosSecure = useAxiosSecure()
+    const axiosSecure = useAxiosSecure()
 
     if (isLoading) return <Loading />;
 
@@ -176,8 +178,16 @@ const ProductDescrip = () => {
                                 Add to Cart
                             </button>
 
-                            <button className="p-4 border text-black dark:text-white rounded-xl hover:text-danger transition">
-                                <Heart  size={20} />
+                            <button
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    if (!user) {
+                                        return toast.error("Please login first!");
+                                    }
+                                    handleWhislist(product);
+                                }}
+                                className="p-4 border text-black dark:text-white rounded-xl hover:text-danger transition">
+                                <Heart size={20} />
                             </button>
                         </div>
                     </div>

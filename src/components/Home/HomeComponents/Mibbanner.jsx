@@ -2,8 +2,10 @@ import React from 'react';
 import { Sparkles, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ctaimg from '/cta.avif'
+import { useNavigate } from 'react-router';
 
 export default function Mibbanner() {
+  const navigate = useNavigate()
   return (
     
     <section className="py-12 bg-background transition-colors duration-500">
@@ -39,6 +41,7 @@ export default function Mibbanner() {
             <div className="flex flex-wrap items-center gap-8">
              
               <motion.button
+                onClick={()=>navigate('/deals')}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className="px-8 py-4 bg-accent text-white hover:bg-accent-hover rounded-2xl font-black uppercase text-xs tracking-widest transition-all flex items-center gap-3 shadow-lg shadow-accent/20"
@@ -48,7 +51,7 @@ export default function Mibbanner() {
 
               <div className="flex items-center gap-8 border-l border-border-color pl-8">
                 <div className="text-center">
-                  <p className="text-3xl font-black text-text-main">50%</p>
+                  <p className="text-3xl font-black text-text-main">Up to 10%</p>
                   <p className="text-[10px] uppercase tracking-widest text-text-muted font-bold mt-1">Discount</p>
                 </div>
                 <div className="text-center">

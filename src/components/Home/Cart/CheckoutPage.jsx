@@ -5,7 +5,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 
 const CheckoutPage = () => {
-  const { cart } = useContext(CartContext);
+  const { cart, removeAllFromCart, setCart } = useContext(CartContext);
   const { user } = useContext(AuthContex);
   const axiosSecure = useAxiosSecure();
   console.log(cart);
@@ -37,10 +37,10 @@ const CheckoutPage = () => {
 
       productCategory: cart.map(item => item.category).join(","),
 
-      price: total,               
-      quantity: cart.length,      
+      price: total,
+      quantity: cart.length,
 
-      photo: cart[0].photo,       
+      photo: cart[0].photo,
       totalAmount: total,
 
       status: "pending",
@@ -53,7 +53,9 @@ const CheckoutPage = () => {
 
       if (response.data?.gateWayPageUrl) {
         window.location.replace(response.data.gateWayPageUrl);
+        setCart([])
       }
+
     } catch (error) {
       console.error(error);
       toast.error("Order failed, try again");
@@ -139,7 +141,7 @@ const CheckoutPage = () => {
             </div>
           </div>
 
-          {/* RIGHT SIDE */}
+
           <div className="lg:col-span-5">
             <div className="bg-bg-primary p-8 rounded-3xl border border-border-color shadow-xl sticky top-8">
 
@@ -173,7 +175,8 @@ const CheckoutPage = () => {
               </div>
 
               <button
-                onClick={handleBuyNow}
+                onClick={() => { handleBuyNow() }}
+
                 className="w-full mt-8 bg-accent hover:bg-accent-hover text-white py-4 rounded-xl font-semibold transition-all shadow-lg shadow-accent-soft active:scale-95"
               >
                 Place Order

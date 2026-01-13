@@ -82,7 +82,7 @@ const ShowCategory = ({ filterCategorie }) => {
                             </div>
 
                             <button
-                                onClick={(e) => { e.stopPropagation(); addToCart(product) }}
+                                onClick={(e) => { e.stopPropagation(); addToCart(filterCategorie) }}
                                 className="p-3 bg-accent hover:bg-accent-hover text-white rounded-lg transition-colors shadow-md shadow-accent/20">
                                 <ShoppingCart className="w-5 h-5" />
                             </button>

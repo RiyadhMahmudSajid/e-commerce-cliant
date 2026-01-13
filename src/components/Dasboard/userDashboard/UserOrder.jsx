@@ -92,8 +92,8 @@ const UserOrder = () => {
                                         <td className="px-6 py-4">
                                             <p className="text-sm font-bold text-accent">${order.totalAmount}</p>
                                         </td>
-                                        <td className="px-6 py-4">
-                                            {/* <StatusBadge status={order?.status} /> */}
+                                        <td className="px-6 py-4 text-text-muted">
+                                            
                                           {
                                             order?.status
                                           }

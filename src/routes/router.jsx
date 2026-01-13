@@ -14,7 +14,6 @@ import ManageProduct from "../components/Dasboard/DashboardComponent/ManageProdu
 import AllProducts from "../components/Home/HomeComponents/AllProduct";
 import SearchResults from "../components/pages/SearchResults";
 import ProductDescrip from "../components/Home/HomeComponents/ProductDescrip";
-import UserProfile from "../components/UserProfile/UserProfile";
 import DashboardHome from "../components/Dasboard/DashboardHome/DashboardHome";
 import CartPage from "../components/Home/Cart/CartPage";
 import CheckoutPage from "../components/Home/Cart/CheckoutPage";
@@ -31,6 +30,7 @@ import Deals from "../components/Home/HomeComponents/Deals";
 import LearnMore from "../components/Home/HomeComponents/LearnMore";
 import PrivateRoute from "./PrivateRoute";
 import NotFound from "../components/NotFound/NotFound";
+import UserProfile from "../components/Dasboard/userDashboard/UserProfile";
 
 
 
@@ -131,7 +131,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/dashboard/user/profile',
-        Component: UserProfile
+        Component:UserProfile
       },
       {
         path: '/dashboard/user/my-orders',
