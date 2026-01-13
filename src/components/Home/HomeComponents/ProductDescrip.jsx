@@ -13,7 +13,6 @@ import {
 import Loading from '../../loading/Loading';
 import { CartContext } from '../../../providers/CartProvider';
 import { AuthContex } from '../../../providers/AuthProvider';
-import useAxios from '../../../hooks/useAxios';
 import toast from 'react-hot-toast';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import useWhislist from '../../../hooks/useWhislist';

@@ -103,14 +103,18 @@ const Register = () => {
                             id='password'
                             {...register("password", {
                                 required: "Password is required",
-                                minLength: { value: 6, message: "Min 6 characters" }
+                                minLength: { value: 8, message: "Min 8 characters" },
+                                pattern: {
+                                    value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                                    message: "Must include uppercase, lowercase, number, and special character"
+                                }
                             })}
                             className="w-full px-4 py-3 bg-bg-secondary border border-border-color rounded-xl text-text-main focus:outline-none focus:border-accent transition-all text-sm"
                             placeholder="••••••••"
                         />
                         {errors.password && <span className="text-danger text-xs">{errors.password.message}</span>}
                     </div>
-                     
+
                     <div className="flex flex-col gap-1.5">
                         <label className="text-sm font-semibold text-text-main" htmlFor='photoURL'>Photo</label>
                         <input
@@ -118,11 +122,14 @@ const Register = () => {
                             id='photoURL'
                             {...register("photoURL", {
                                 required: "Photo is required",
-                                minLength: { value: 6, message: "Photo is required" }
+
                             })}
                             className="w-full px-4 py-3 bg-bg-secondary border border-border-color rounded-xl text-text-main focus:outline-none focus:border-accent transition-all text-sm"
                             placeholder="••••••••"
                         />
+                        <p className="text-[10px] text-text-muted mt-0.5">
+                            Password must be at least 8 characters with letters, numbers & symbols.
+                        </p>
                         {errors.photoURL && <span className="text-danger text-xs">{errors.photoURL.message}</span>}
                     </div>
 
